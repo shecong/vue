@@ -20,6 +20,15 @@
             </el-dropdown>
         </div>
         <el-drawer title="更换主题样式" :visible.sync="drawer" :direction="direction" :before-close="handleClose">
+            <ThemeSwitcher></ThemeSwitcher>
+            <div class="ChangeTheme">
+                <div class="ThemeButton" @click="ChangeThemeColor('black')" style=" background-color: black;" title="暗夜黑">
+                </div>
+                <div class="ThemeButton" @click="ChangeThemeColor('red')" style=" background-color: red;" title="凤凰红"></div>
+                <div class="ThemeButton" @click="ChangeThemeColor('Red')" style=" " title="凤凰红"></div>
+                <div class="ThemeButton" @click="ChangeThemeColor('Red')" style="  " title="凤凰红"></div>
+                <div class="ThemeButton" @click="ChangeThemeColor('Red')" style=" " title="凤凰红"></div>
+            </div>
             <div>
 
             </div>
@@ -27,7 +36,20 @@
     </div>
 </template>
 
-<style lang="less" scoped> .el-dropdown-link {
+<style lang="less" scoped> .ChangeTheme {
+     justify-content: space-between;
+     display: flex;
+
+     .ThemeButton {
+         height: 60px;
+         width: 70px;
+         border-radius: 5px;
+         margin: 0px;
+         margin-left: 10px;
+     }
+ }
+
+ .el-dropdown-link {
      cursor: pointer;
      color: #409EFF;
  }
@@ -71,8 +93,12 @@
 </style>
 
 <script>
+import ThemeSwitcher from '../theme/ThemeSwitcher.vue';
 
 export default {
+    components: {
+    ThemeSwitcher
+  },
     data() {
         return {
             drawer: false,
@@ -115,8 +141,15 @@ export default {
         }, handleClose(done) {
 
             done();
+        },
+        ChangeThemeColor(item) {
+             
         }
 
     }
 }
+
+
+
+
 </script>

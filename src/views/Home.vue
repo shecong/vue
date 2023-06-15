@@ -36,7 +36,10 @@
             <div ref="echarts1" style="height: 280px;margin-left: 10px;"></div>
             </el-card>
             <div class="grap">
-                <el-card></el-card>
+                <el-card>
+                    <el-button >测试</el-button>
+                    <el-button type="primary">主要按钮</el-button>
+                </el-card>
                 <el-card></el-card>
             </div>
         </el-col>
