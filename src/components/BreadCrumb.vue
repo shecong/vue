@@ -24,7 +24,7 @@ export default {
             //this.$route.matched
             //这个地方是为了固定第一级目录是首页不变
             if (matched.length && matched[0].name !== "home") {
-                matched = [{ path: '/home', name: 'home', meta: { title: '首页' } }, ...matched];
+                matched = [ ...matched];
             }
             //数组名 是一种追加数组的方法
             var arr = [1, 2, 3]
@@ -41,8 +41,9 @@ export default {
 <style lang="less" scoped>
 .breadcumb{
     margin-bottom: 10px;
-    height: 20px;
-    line-height: 20px;
+    height: 30px;
+    line-height: 30px;
     background-color: whitesmoke;
+    font-size: 15px;
 }
 </style>

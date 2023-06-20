@@ -1,6 +1,6 @@
 <template>
     <el-menu default-active="1-4-1"  @open="handleOpen" @close="handleClose"
-        :collapse="isCollapse" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+        :collapse="isCollapse"   text-color="black" active-text-color="#ffd04b">
         <h3>{{ !isCollapse ? '通用后台管理' : '后台' }}</h3>
         <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.name">
             <i :class="`el-icon-${item.icon}`"></i>
@@ -18,18 +18,19 @@
     </el-menu>
 </template>
 
-  
+   
 <style lang="less" scoped>
 .el-menu {
     height: 100vh;
     border: 0;
-
+    
     h3 {
-        color: #fff;
+        color: black;
         text-align: center;
         line-height: 48px;
         font-size: 16px;
         font-weight: 400;
+        width: 200px;
     }
 }
 </style>
@@ -49,7 +50,7 @@ export default {
                 {
                     path: '/mall',
                     name: 'mall',
-                    label: '商品管理',
+                    label: '个人信息',
                     icon: 'video-play',
                     url: 'MallManage/MallManage'
                 }, {

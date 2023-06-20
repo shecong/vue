@@ -1,5 +1,5 @@
 <template>
-    <h1>我是User</h1>
+    <h1>个人信息</h1>
 </template>
 
  <script>

@@ -1,14 +1,14 @@
 <template>
-    <div> 
+    <div>
         <el-container>
-            <el-aside width="auto">
-                <CommonAside />
-            </el-aside>
+            <el-header style="padding: none;">
+                <CommonHead />
+            </el-header>
             <el-container>
-                <el-header style="padding: none;">
-                    <CommonHead />
-                </el-header>
-                <el-main>
+                <el-aside width="auto">
+                    <CommonAside />
+                </el-aside> 
+                <el-main style="background: #eee;"> 
                     <Breadcrumb />
                     <router-view></router-view>
                 </el-main>
@@ -19,11 +19,12 @@
 
 
 <style lang="less" scoped>
-.el menu{
-    border-right: none; 
+.el menu {
+    border-right: none;
 }
-.el-header{
-    padding:0;
+
+.el-header {
+    padding: 0;
 }
 </style>
 

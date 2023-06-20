@@ -29,7 +29,19 @@ import store  from '@/store';
 		password: '',
 	  }
 	},
+	created(){
+		//监听回车键
+		this.keydown();
+	},
 	methods: {
+		keydown() {
+            document.onkeydown = (e) => {
+                let _key = window.event.keyCode; 
+                //!this.clickState是防止用户重复点击回车(13)
+                if (_key === 13 && !this.clickState) {
+					this.inputInfo();    
+                }
+            }},
 	  // 清空当前填写信息
 	  resetInfo: function () {
 		this.username = "";

@@ -37,13 +37,13 @@ const routes = [
       },
       {
         path: '/User', component: User, meta: {
-          title: '首页1',
+          title: '用户中心',
           requireAuth: true
         }
       },
       {
         path: '/Mall', component: Mall, meta: {
-          title: '首页2',
+          title: '个人信息',
           requireAuth: true
         }
       },

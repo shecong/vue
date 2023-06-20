@@ -13,7 +13,5 @@ export const Login=(user,password,checkcode)=>{
         })
     }).then(res => {
         console.log(res.data);
-    })
-          
-    
+    }) 
 }
