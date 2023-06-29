@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-row> 
+        <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark">
                     <div class="thumb-example">
@@ -48,11 +48,11 @@
                 </div>
             </el-col>
             <el-col :span="18">
-                <div class="grid-content bg-purple-light">
+                <div class="grid-content">
                     <el-col :span="18">
                         <div class="grid-content">
                             <div class="center-title-contianer">
-                            <WeBoMain />
+                                <WeBoMain />
                             </div>
                         </div>
                     </el-col>
@@ -68,53 +68,53 @@
 
 <script>
 
-	// 局部引入 vue-awesome-swiper 及其样式
-	import { swiper, swiperSlide } from 'vue-awesome-swiper' 
-	import 'swiper/dist/css/swiper.css' 
-    import WeBoMain from '../components/Mall/WeBoMain.vue'
+// 局部引入 vue-awesome-swiper 及其样式
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+import WeBoMain from '../components/Mall/WeBoMain.vue'
 
 
-    export default {
+export default {
     name: 'swiper-example-thumbs-gallery',
     title: 'Thumbs gallery with Two-way control',
     components: {
-      swiper,
-      WeBoMain, 
-      swiperSlide
+        swiper,
+        WeBoMain,
+        swiperSlide
 
     },
     data() {
-      return {
-        swiperOptionTop: {
-          loop: true,
-          loopedSlides: 5, // looped slides should be the same
-          spaceBetween: 10,
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
-        },
-        swiperOptionThumbs: {
-          loop: true,
-          loopedSlides: 5, // looped slides should be the same
-          spaceBetween: 10,
-          centeredSlides: true,
-          slidesPerView: 'auto',
-          touchRatio: 0.2,
-          slideToClickedSlide: true
+        return {
+            swiperOptionTop: {
+                loop: true,
+                loopedSlides: 5, // looped slides should be the same
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                }
+            },
+            swiperOptionThumbs: {
+                loop: true,
+                loopedSlides: 5, // looped slides should be the same
+                spaceBetween: 10,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                touchRatio: 0.2,
+                slideToClickedSlide: true
+            }
         }
-      }
-    }, 
+    },
     mounted() {
-      this.$nextTick(() => { 
-        const swiperTop = this.$refs.swiperTop.swiper
-        const swiperThumbs = this.$refs.swiperThumbs.swiper 
-        swiperTop.controller.control = swiperThumbs
-        swiperThumbs.controller.control = swiperTop
-      })
+        this.$nextTick(() => {
+            const swiperTop = this.$refs.swiperTop.swiper
+            const swiperThumbs = this.$refs.swiperThumbs.swiper
+            swiperTop.controller.control = swiperThumbs
+            swiperThumbs.controller.control = swiperTop
+        })
     }
-  }
-	 
+}
+
 </script> 
 
 <style lang="less" scoped>
@@ -152,6 +152,7 @@
     padding: 10px 0;
     background-color: #f9fafc;
 }
+
 //标准样式
 
 //轮播图部分
@@ -216,7 +217,8 @@
 .headlogo img {
     max-width: 100%;
     height: auto;
-} 
+}
+
 a:hover {
     color: var(--color-links-hover);
     text-decoration: none;
@@ -256,10 +258,10 @@ a:hover {
     color: rgba(var(--color-black-rgb), 0.4);
     margin-bottom: 10px;
 }
+
 ///headlogo部分 
 
 ///webo部分
 
 //
-
 </style>

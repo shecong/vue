@@ -30,7 +30,7 @@
                 <div class="ThemeButton" @click="ChangeThemeColor('Red')" style=" " title="凤凰红"></div>
             </div>
             <div>
-
+         <!-- <ThemeSwitcher /> -->
             </div>
         </el-drawer>
     </div>
@@ -40,6 +40,8 @@
 </style>
 
 <script>
+import ThemeSwitcher from '@/theme/ThemeSwitcher.vue';
+
 
 export default {
     data() {
@@ -49,6 +51,9 @@ export default {
             theme: "dark"
         }
     }, 
+    components:{
+        ThemeSwitcher
+    },
     methods: { 
                 HandlMenu() {
                 this.$store.commit('collapsMenu')
