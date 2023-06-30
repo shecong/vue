@@ -1,7 +1,9 @@
 <template>
     <el-menu default-active="1-4-1"  @open="handleOpen" @close="handleClose"
         :collapse="isCollapse"   text-color="black" active-text-color="#ffd04b">
-        <h3>{{ !isCollapse ? '通用后台管理' : '后台' }}</h3>
+        <div style="    text-align: center;
+    line-height: 43px;
+    height: 40px;">{{ !isCollapse ? '多模态信息管理' : '信息' }}<h3></h3></div>
         <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.name">
             <i :class="`el-icon-${item.icon}`"></i>
             <span slot="title">{{ item.label }}</span>

@@ -41,7 +41,7 @@
                     <div class="d-flex align-items-center author">
                         <div class="photo"><img src="../assets/logo.gif" alt="" class="img-fluid"></div>
                         <div class="name">
-                            <h3 class="m-0 p-0">Cameron Williamson</h3>
+                            <h3 class="m-0 p-0">sc_piter</h3>
                         </div>
                     </div>
 
