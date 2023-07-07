@@ -2,8 +2,9 @@
     <div>
         <el-row>
             <el-col :span="24">
-                <div class="grid-content bg-purple-dark">
-                    <div class="thumb-example">
+                <div class="grid-content">
+                    <el-button type="primary" @click="clickOpenHidden">{{ isOpen ?  '展开': '折叠' }}</el-button>
+                    <div class="thumb-example" ref="openBox">
                         <!-- swiper1 -->
                         <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop">
                             <swiper-slide class="slide-1"></swiper-slide>
@@ -57,11 +58,15 @@
                         </div>
                     </el-col>
                     <el-col :span="6">
-                        <div class="grid-content bg-purple-light"></div>
+                        <div class="grid-content bg-purple-light">
+                            <WeBoHot />
+                        </div>
                     </el-col>
                 </div>
             </el-col>
         </el-row>
+        <el-backtop title="滑动到顶部"></el-backtop>
+      
     </div>
 </template>
  
@@ -72,7 +77,7 @@
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import WeBoMain from '../components/Mall/WeBoMain.vue'
-
+import WeBoHot from '@/components/Mall/WeBoHot.vue'
 
 export default {
     name: 'swiper-example-thumbs-gallery',
@@ -80,8 +85,8 @@ export default {
     components: {
         swiper,
         WeBoMain,
-        swiperSlide
-
+        swiperSlide,
+        WeBoHot
     },
     data() {
         return {
@@ -102,7 +107,8 @@ export default {
                 slidesPerView: 'auto',
                 touchRatio: 0.2,
                 slideToClickedSlide: true
-            }
+            },isOpen: false, // 是否展开下方折叠内容
+			openHeight: 0, // 折叠面板内容初始高度
         }
     },
     mounted() {
@@ -112,6 +118,24 @@ export default {
             swiperTop.controller.control = swiperThumbs
             swiperThumbs.controller.control = swiperTop
         })
+    },methods:{
+        // 展开折叠
+		clickOpenHidden() {
+			this.isOpen = !this.isOpen
+			
+			let openBox = this.$refs.openBox
+			let boxheight = openBox.offsetHeight
+            
+			if(boxheight === this.openHeight) { //展开
+				openBox.style.height = 'auto'
+				boxheight = openBox.offsetHeight
+				openBox.style.height = '480px' 
+				let f = document.body.offsetHeight  // 必加 (不知道具体是为什么必加, 测试时发现若不加在展开时候会没有过渡效果) 
+				openBox.style.height = '480px'
+			} else { //折叠
+				openBox.style.height = this.openHeight + 'px'
+			}
+		},
     }
 }
 
@@ -155,10 +179,19 @@ export default {
 
 //标准样式
 
-//轮播图部分
+//轮播图部分 
 .thumb-example {
     height: 480px;
     background-color: black;
+    overflow: hidden;
+    transition: height 0.5s ease-in-out; //动画效果
+		background: transparent;
+		box-sizing: border-box;
+
+		.content {
+			margin-top: 16px;
+			background: darkslategray;
+		}
 }
 
 .swiper {

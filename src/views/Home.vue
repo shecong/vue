@@ -145,9 +145,7 @@ export default {
              //调用
             echarts1.setOption(echartsOption)
             
-        })
-
-       
+        }) 
     }
 }
 </script>

@@ -1,5 +1,7 @@
-import http  from '../utils/request.js'
+import http from '../utils/request.js'
 
-export const getData=()=>{
- return http.get('/home/getData')
+export const getData = () => {
+    return http.get('/home/getData')
 }
+
+ 

@@ -1,3 +1,6 @@
 import Mock from 'mockjs'
 import homeApi from './MockServerData/home'
-Mock.mock('/api/home/getData',homeApi.getStatisticalData)
+import mallApi from './MockServerData/mall'
+
+
+Mock.mock('/home/getData',homeApi.getStatisticalData)

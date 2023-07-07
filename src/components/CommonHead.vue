@@ -20,7 +20,7 @@
                 <span class="el-icon-setting" @click="drawer = true" type="primary" title="设置"></span>
             </div>
         </div>
-        <el-drawer title="更换主题样式" :visible.sync="drawer" :direction="direction" :before-close="handleClose">
+        <el-drawer title="更换主题样式" :visible.sync="drawer" :direction="direction" :before-close="handleClose" size="20%">
             <div class="ChangeTheme">
                 <div class="ThemeButton" @click="ChangeThemeColor('black')" style=" background-color: black;" title="暗夜黑">
                 </div>
@@ -63,7 +63,7 @@ export default {
                     confirmButtonText: '是',
                     cancelButtonText: '否',
                     type: 'warning',
-                    center: false,
+                    center: false, 
                     closeOnPressEscape: false,//按下 ESC 键关闭弹窗
                     closeOnClickModal: false,//点击遮罩关闭弹窗
                     distinguishCancelAndClose: true,//区分取消与关闭

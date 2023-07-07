@@ -18,8 +18,9 @@
                     </el-submenu>
                 </el-menu>
             </el-header>
-            <el-main>
-                <div class="infinite-list-wrapper" style="overflow:auto">
+            <el-main >
+                <el-skeleton :rows="6" :loading="headloading" animated />
+                <div class="infinite-list-wrapper" style="overflow:auto" ref="hotmain">
                     <ul class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
                         <li v-for="i in count" class="list-item">
                             <div class="webo-head">
@@ -56,8 +57,13 @@
                                     <div @click="footFunction('点赞')"><i class="el-icon-s-custom"
                                             title="点赞"></i><span>231</span></div>
                                 </div>
-                                <div class="wb-comment-container" v-if="visibleIndex === i"  :key="i">
+                                <div class="wb-comment-container" v-if="visibleIndex === i" :key="i">
                                     <div>
+                                        <el-divider style="    display: block;
+    height: 1px;
+    width: 88%;
+    margin: auto;
+    margin-top: 10px;"></el-divider>
                                         <div class="wb-tab3">
                                             <div class="item" style="">按倒序</div>
                                             <div class="item">按正序</div>
@@ -149,7 +155,8 @@ export default {
             count1: 3,
             loading: false,
             activeIndex: '1',
-            visibleIndex: null
+            visibleIndex: null,
+            headloading:false
         }
     },
     computed: {
@@ -168,13 +175,13 @@ export default {
                 this.loading = false
             }, 2000)
         }, ClickRefresh(item) {
-            const h = this.$createElement;
-            this.$message({
-                message: h('p', null, [
-                    h('span', null, '您点击了：'),
-                    h('i', { style: 'color: teal' }, item)
-                ])
-            });
+            this.$refs.hotmain.style.display='none'; 
+            this.headloading=true;
+             //模拟刷新效果
+            this.timer = setTimeout(()=>{   //设置延迟执行 
+                this.headloading=false; 
+                this.$refs.hotmain.style.display='block';
+            },1000); 
         }, footFunction(item, i) {
             if (item === "评论") {
                 if (this.visibleIndex === i) {
@@ -182,6 +189,9 @@ export default {
                 } else {
                     this.visibleIndex = i;
                 }
+            } else if (item === "分享") {
+                const shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
+                window.open(shareUrl, '_blank');
             } else {
                 const h = this.$createElement;
                 this.$message({
@@ -191,11 +201,6 @@ export default {
                     ])
                 });
             }
-
-
-
-
-
         }, handleSelect(key, keyPath) {
             //微博导航栏
             console.log(key, keyPath);
@@ -348,4 +353,5 @@ export default {
 
 .wb-tab3-function {
     margin-right: 10px;
-}</style>
+}
+</style>
