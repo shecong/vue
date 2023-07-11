@@ -8,7 +8,8 @@
     <el-skeleton :rows="6" :loading="loading" animated />
     <div ref="hoecontent">
       <div v-for="(item, index) in baiduHot">
-      <div class="grid-content" style="padding-top: 5px;font-size: 20px;">
+      <div class="grid-content" style="padding-top: 5px;font-size: 20px;text-wrap: nowrap;
+}">
         <span
           style="font-size: 18px;width: 22px; height: 36px;line-height: 36px;background-size: 100% 100%;text-align: left;margin-right: 4px;top: 1px;">
           {{ index + 1 }}</span>

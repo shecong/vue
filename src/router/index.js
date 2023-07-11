@@ -43,7 +43,7 @@ const routes = [
       },
       {
         path: '/Mall', component: Mall, meta: {
-          title: '个人信息',
+          title: '社区信息',
           requireAuth: true
         }
       },

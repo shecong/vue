@@ -76,6 +76,7 @@
 // 局部引入 vue-awesome-swiper 及其样式
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+
 import WeBoMain from '../components/Mall/WeBoMain.vue'
 import WeBoHot from '@/components/Mall/WeBoHot.vue'
 

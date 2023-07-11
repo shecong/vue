@@ -18,14 +18,13 @@
                     </el-submenu>
                 </el-menu>
             </el-header>
-            <el-main >
+            <el-main>
                 <el-skeleton :rows="6" :loading="headloading" animated />
                 <div class="infinite-list-wrapper" style="overflow:auto" ref="hotmain">
                     <ul class="list" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
                         <li v-for="i in count" class="list-item">
                             <div class="webo-head">
-                                <div style="justify-content: space-around;
-    display: flex;">
+                                <div style="justify-content: space-around;display: flex;">
                                     <div class="webo-head-avatar list-item-div" style="width: 3.25rem;height: 3.25rem;">
                                         <img src="../../assets/logo.png" alt="">
                                     </div>
@@ -47,7 +46,39 @@
                                     </el-button>
                                 </div>
                             </div>
-                            <div class="weob-container"></div>
+                            <div class="weob-container">
+                                <div class="detail-text "> 
+                                    这样的男生不可能是渣男<br><br>
+
+1.穿衣服不是黑色就是白色<br>
+2.经常不发朋友圈，从来不自拍<br>
+3.长时间你怎么换头像<br>
+4.会把情绪写下脸上，为人心直口快<br>
+5.女生碰他一下都会自动保持距离<br>
+6.从来不去酒吧夜店的<br>
+7.不忙的时候随叫随到，信息秒回<br>
+8. 除了有点直男不浪漫，抢着买单从不犹豫<br>
+9.直男毛病改不了，但是真的爱你，也照顾你的情绪<br>
+                                </div>
+                                <div class="detail-picture" style="height: 100px;width: 100%;overflow: hidden;    display: flex;
+    justify-content: start;">
+                                     <img @click="pictureFunction('https://img0.baidu.com/it/u=1879638641,2189704731&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=979')" 
+                                     src="https://img0.baidu.com/it/u=1879638641,2189704731&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=979" style=" 
+    height: 144%;
+    cursor: zoom-in;padding:0px 10px;display: flex;" alt="">
+    <img @click="pictureFunction('https://img1.artron.net/auction/2012/art502875/d/art5028750576.jpg')" 
+    src="https://img1.artron.net/auction/2012/art502875/d/art5028750576.jpg" style=" 
+    height: 144%;
+    cursor: zoom-in;padding:0px 10px;display: flex;" alt="">
+    <img @click="pictureFunction('https://img0.baidu.com/it/u=3353722478,1897885792&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=967')" 
+    src="https://img0.baidu.com/it/u=3353722478,1897885792&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=967" style=" 
+    height: 144%;
+    cursor: zoom-in;padding:0px 10px;display: flex;" alt="">
+                                </div>
+                                <div  class="detail-movie">
+
+                                </div>
+                            </div>
                             <div class="weob-foot">
                                 <div style="justify-content: space-around;display: flex;color: grey; cursor: pointer;">
                                     <div @click="footFunction('分享')"><i class="el-icon-share"
@@ -156,7 +187,7 @@ export default {
             loading: false,
             activeIndex: '1',
             visibleIndex: null,
-            headloading:false
+            headloading: false
         }
     },
     computed: {
@@ -175,13 +206,13 @@ export default {
                 this.loading = false
             }, 2000)
         }, ClickRefresh(item) {
-            this.$refs.hotmain.style.display='none'; 
-            this.headloading=true;
-             //模拟刷新效果
-            this.timer = setTimeout(()=>{   //设置延迟执行 
-                this.headloading=false; 
-                this.$refs.hotmain.style.display='block';
-            },1000); 
+            this.$refs.hotmain.style.display = 'none';
+            this.headloading = true;
+            //模拟刷新效果
+            this.timer = setTimeout(() => {   //设置延迟执行 
+                this.headloading = false;
+                this.$refs.hotmain.style.display = 'block';
+            }, 1000);
         }, footFunction(item, i) {
             if (item === "评论") {
                 if (this.visibleIndex === i) {
@@ -204,6 +235,8 @@ export default {
         }, handleSelect(key, keyPath) {
             //微博导航栏
             console.log(key, keyPath);
+        },pictureFunction(src){
+            window.open(src)
         }
     }
 }
@@ -353,5 +386,10 @@ export default {
 
 .wb-tab3-function {
     margin-right: 10px;
+}
+
+
+.weob-container{
+    padding:0 62px;
 }
 </style>

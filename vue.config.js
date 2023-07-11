@@ -17,6 +17,13 @@ module.exports = defineConfig({
           '^/webo': '' // 重写路径，将请求路径中的 '/api' 替换为空
         }
       }, 
+      '/mock': {
+        target: 'http://1.12.243.231:8082/', // 设置代理目标
+        changeOrigin: true, // 是否改变请求源
+        pathRewrite: {
+          '^/mock': '/api' // 重写路径，将请求路径中的 '/api' 替换为/api
+        }
+      }, 
     }
   }
 }) 

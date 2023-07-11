@@ -122,10 +122,11 @@ export default {
     mounted() {
         getData().then(({ data }) => {
              
-           
+           console.log(data)
            const echarts1= exports.init(this.$refs.echarts1)
             var echartsOption={}
             const { orderData }=data.data   
+            console.log(orderData)
             const xAxiosVal=Object.keys(orderData.data[0]) 
             const xAxiosData={
                 data:xAxiosVal  

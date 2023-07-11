@@ -4,7 +4,7 @@
 	  <div id="login-form">
 		<h1>登陆界面</h1>
 		<label for="username"><i class="el-icon-user-solid" style="color: #c1c1c1"></i></label>
-		<input type="text" placeholder="默认账号：admin" value="sc" id="username" autocapitalize="off" v-model.trim="username" aria-autocomplete="off">
+		<input type="text" placeholder="默认账号：admin" value="sc" autofocus id="username" autocapitalize="off" v-model.trim="username" aria-autocomplete="off">
 		<p style="visibility: hidden">用户名为必填选项</p>
 		<label for="password"><i class="el-icon-right" style="color: #c1c1c1"></i></label>
 		<input type="password" placeholder="默认密码：123456" value="123456" id="password" autocapitalize="off" v-model.trim="password">
@@ -31,7 +31,7 @@ import store  from '@/store';
 	},
 	created(){
 		//监听回车键
-		this.keydown();
+		this.keydown(); 
 	},
 	methods: {
 		keydown() {

@@ -52,7 +52,7 @@ export default {
                 {
                     path: '/mall',
                     name: 'mall',
-                    label: '个人信息',
+                    label: '社区信息',
                     icon: 'video-play',
                     url: 'MallManage/MallManage'
                 }, {
