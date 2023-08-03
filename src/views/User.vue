@@ -17,7 +17,9 @@
                 </el-submenu>
             </el-menu>
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+            <CommonContainer />
+        </el-main>
     </el-container>
 </template>
 
@@ -103,8 +105,7 @@ export default {
  .el-main {
      background-color: #FFF;
      color: #333;
-     text-align: center;
-     line-height: 160px;
+     text-align: center; 
      height: 100vh;
  }
 

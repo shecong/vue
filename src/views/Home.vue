@@ -11,10 +11,10 @@
                 </div>
                 <div class="login-info">
                     <p>上次登录时间：<span>2023/04/25</span></p>
-                    <p>上次登录低点：<span>广州</span></p>
+                    <p>上次登录地点：<span>广州</span></p>
                 </div>
             </el-card>
-            <el-card style="margin-top:20px;height:480px">
+            <el-card style="margin-top:20px;height:525px">
                 <el-table style="width: 100%;"  height="480px" :data="tableData">
                     <el-table-column fixed v-for="(val, key) in tablelabe" :key="key" :prop="key" :label="val">
 

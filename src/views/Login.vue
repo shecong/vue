@@ -25,8 +25,8 @@ import store  from '@/store';
 	 
 	data: function () {
 	  return {
-		username: '',
-		password: '',
+		username: 'admin',
+		password: '123456',
 	  }
 	},
 	created(){
