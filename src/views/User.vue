@@ -87,9 +87,7 @@ export default {
             this.IsOpen=false;
             if (this.$route.path !== item.path || (this.$route.path === '/home' && item.path === "/")) { 
                 this.$router.push(item.path)  
-            }else{
-                this.IsOpen=true;
-            }
+            } 
         }, 
     },
     created() { },

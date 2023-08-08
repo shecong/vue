@@ -12,6 +12,16 @@ import MyHtml from '../views/UserChildren/MyHtml.vue'
 import Setting from '../views/UserChildren/Setting.vue'
 import SingleIR from '../views/UserChildren/SingleIR.vue'
 
+
+//IM通讯引入
+import IMHome from '../views/UserChildren/SingleIRChildren/IMHome.vue'
+import IMLogin from '../views/UserChildren/SingleIRChildren/IMLogin.vue'
+import IMConversations from '../views/UserChildren/SingleIRChildren/IMConversations.vue'
+import IMContacts from '../views/UserChildren/SingleIRChildren/IMContacts.vue'
+import IMPrivateChat from '../views/UserChildren/SingleIRChildren/IMPrivateChat.vue'
+import IMGroupChat from '../views/UserChildren/SingleIRChildren/IMGroupChat.vue' 
+//IM通讯引入
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -75,7 +85,37 @@ const routes = [
             path: '/SingleIR', components:{UserRouter:SingleIR} , meta: {
               title: '消息通知',
               requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
-            }
+            },children:[ 
+              {
+                path: '/IMHome',
+                components: {UserIMRouter:IMHome}, 
+                children: [
+                    {
+                        path: '/imconversations',
+                      components: {UserIMRouter:IMConversations},
+                        children: [
+                            {
+                                path: '/imprivatechat/:id',
+                                components: {UserIMRouterEntry:IMPrivateChat},
+                            },
+                            {
+                                path: '/imgroupchat/:id',
+                              components: {UserIMRouterEntry:IMGroupChat},
+                            },
+                        ],
+                    },
+                    {
+                        path: '/imcontacts',
+                      components: {UserIMRouter:IMContacts},
+                    },
+                ],
+            },
+            {
+                path: '/',
+              components: {UserIMRouter:IMLogin},
+            },
+
+            ]
           },
         ]
       },

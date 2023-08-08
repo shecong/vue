@@ -8,7 +8,8 @@
 
 <script>
 import { RouterLink } from 'vue-router'; 
-
+ /*引入阿里字体图标*/
+ import { iconfont } from  './assets/iconfont/iconfont.css';
 export default {
     name: "App",
     components: { RouterLink }

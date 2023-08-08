@@ -3452,6 +3452,11 @@
     "merge2" "^1.4.1"
     "slash" "^3.0.0"
 
+"goeasy@^2.6.6":
+  "integrity" "sha512-aMvcc43ANMnaRn9C+JJKSmqVtLriBQx+y3VJUKvCBDEsfuEnwFMGa9chzvw/zYJcTSopzv89074QlLa4czsXSg=="
+  "resolved" "https://registry.npmmirror.com/goeasy/-/goeasy-2.6.6.tgz"
+  "version" "2.6.6"
+
 "graceful-fs@^4.1.2", "graceful-fs@^4.1.6", "graceful-fs@^4.2.0", "graceful-fs@^4.2.4", "graceful-fs@^4.2.6", "graceful-fs@^4.2.9":
   "integrity" "sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ=="
   "resolved" "https://registry.npmmirror.com/graceful-fs/-/graceful-fs-4.2.11.tgz"
