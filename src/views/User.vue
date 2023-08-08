@@ -18,12 +18,14 @@
             </el-menu>
         </el-aside>
         <el-main>
-            <CommonContainer />
+            <CommonContainer v-show="IsOpen"/>
+            <router-view name="UserRouter"></router-view>
         </el-main>
     </el-container>
 </template>
 
 <script>
+import { isProxy } from 'vue';
 import CommonContainer from '../components/User/CommonContainer.vue'
 export default {
     components: {
@@ -32,45 +34,34 @@ export default {
     props: {},
     data() {
         return {
+            IsOpen:true,
             menuData: [
                 {
-                    path: '/home',
-                    name: 'home',
+                    path: '/Account',
+                    name: 'Account',
                     label: '账号信息',
                     icon: 'user',
-                    url: 'Home/Home'
+                    url: 'Account/Account'
                 },
                 {
-                    path: '/mall',
-                    name: 'mall',
+                    path: '/Like',
+                    name: 'Like',
                     label: '兴趣爱好',
                     icon: 'monitor',
-                    url: 'MallManage/MallManage'
+                    url: 'Like/Like'
                 }, {
-                    path: '/user',
-                    name: 'user',
+                    path: '/Setting',
+                    name: 'Setting',
+                    label: '系统设置',
+                    icon: 'chat-dot-round',
+                    url: 'Setting/Setting'
+                },  {
+                    path: '/SingleIR',
+                    name: 'SingleIR',
                     label: '消息通知',
                     icon: 'chat-dot-round',
-                    url: 'UserManage/UserManage'
-                }, {
-                    label: '个性化管理',
-                    icon: 'set-up',
-                    children: [
-                        {
-                            path: '/page1',
-                            name: 'page1',
-                            label: '系统设置',
-                            icon: 'setting',
-                            url: 'Other/PageOne'
-                        }, {
-                            path: '/page2',
-                            name: 'page2',
-                            label: '自定义页面',
-                            icon: 'setting',
-                            url: 'Other/PageTwo'
-                        },
-                    ]
-                },
+                    url: 'SingleIR/SingleIR'
+                }, 
             ]
         };
     },
@@ -84,9 +75,22 @@ export default {
         },
     },
     methods: {
-        clickMenu(item) { 
-            
-        }
+        //路由跳转
+    handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        clickMenu(item) {  
+            console.log(item)
+            this.IsOpen=false;
+            if (this.$route.path !== item.path || (this.$route.path === '/home' && item.path === "/")) { 
+                this.$router.push(item.path)  
+            }else{
+                this.IsOpen=true;
+            }
+        }, 
     },
     created() { },
     mounted() { }

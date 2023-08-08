@@ -6,13 +6,20 @@ import Main from '../views/Main'
 import Mall from '../views/Mall'
 import Login from '../views/Login'
 import store from "../store/index" 
-
+import Account from '../views/UserChildren/Account.vue'
+import Like from '../views/UserChildren/Like.vue'
+import MyHtml from '../views/UserChildren/MyHtml.vue'
+import Setting from '../views/UserChildren/Setting.vue'
+import SingleIR from '../views/UserChildren/SingleIR.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/', redirect: 'Login' 
+    path: '/', redirect: 'Login' ,components:{
+      default:Main,
+      User:User
+    }
   },
   {
     path: '/Login', component: Login, meta: {
@@ -39,7 +46,38 @@ const routes = [
         path: '/User', component: User, meta: {
           title: '用户中心',
           requireAuth: true
-        }
+        },children:[ 
+          {
+            path: '/Account', components:{UserRouter:Account}, meta: {
+              title: '账号信息',
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            }
+          },
+          {
+            path: '/Like', components:{UserRouter:Like}, meta: {
+              title: '兴趣爱好',
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            }
+          },
+          {
+            path: '/MyHtml', components:{UserRouter:MyHtml}, meta: {
+              title: '自定义页面',
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            }
+          },
+          {
+            path: '/Setting', components:{UserRouter:Setting}, meta: {
+              title: '系统设置',
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            }
+          },
+          {
+            path: '/SingleIR', components:{UserRouter:SingleIR} , meta: {
+              title: '消息通知',
+              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            }
+          },
+        ]
       },
       {
         path: '/Mall', component: Mall, meta: {
@@ -48,7 +86,8 @@ const routes = [
         }
       },
     ]
-  } 
+  },
+  
 ] 
 const router = new VueRouter({
   // mode: 'history',

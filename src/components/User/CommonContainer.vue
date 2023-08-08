@@ -451,7 +451,17 @@ export default {
       this.containerMoveObj.x = e.pageX;
       this.containerMoveObj.y = e.pageY;
     },
+
+    
   },
+  computed:{
+    noChildren() {
+            return this.menuData.filter(item => !item.children)
+        },
+        HasChildren() {
+            return this.menuData.filter(item => item.children)
+        },
+  }
 };
 </script>
 
