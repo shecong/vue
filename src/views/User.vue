@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-aside style="width: 12%;">
-            <el-menu default-active="1-4-1" text-color="black" active-text-color="#ffd04b"> 
+            <el-menu default-active="1-4-1" text-color="black" active-text-color="#ffd04b">
                 <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.name">
                     <i :class="`el-icon-${item.icon}`"></i>
                     <span slot="title">{{ item.label }}</span>
@@ -18,7 +18,7 @@
             </el-menu>
         </el-aside>
         <el-main>
-            <CommonContainer v-show="IsOpen"/>
+            <CommonContainer v-show="IsOpen" />
             <router-view name="UserRouter"></router-view>
         </el-main>
     </el-container>
@@ -34,7 +34,7 @@ export default {
     props: {},
     data() {
         return {
-            IsOpen:true,
+            IsOpen: true,
             menuData: [
                 {
                     path: '/Account',
@@ -55,13 +55,13 @@ export default {
                     label: '系统设置',
                     icon: 'chat-dot-round',
                     url: 'Setting/Setting'
-                },  {
+                }, {
                     path: '/SingleIR',
                     name: 'SingleIR',
                     label: '消息通知',
                     icon: 'chat-dot-round',
                     url: 'SingleIR/SingleIR'
-                }, 
+                },
             ]
         };
     },
@@ -76,26 +76,28 @@ export default {
     },
     methods: {
         //路由跳转
-    handleOpen(key, keyPath) {
+        handleOpen(key, keyPath) {
             console.log(key, keyPath);
         },
         handleClose(key, keyPath) {
             console.log(key, keyPath);
         },
-        clickMenu(item) {  
-            console.log(item)
-            this.IsOpen=false;
-            if (this.$route.path !== item.path || (this.$route.path === '/home' && item.path === "/")) { 
-                this.$router.push(item.path)  
-            } 
-        }, 
+        clickMenu(item) {
+            this.IsOpen = false;
+            if (this.$route.path !== item.path || (this.$route.path === '/home' && item.path === "/")) {
+                this.$router.replace(item.path)
+            }
+        },
     },
     created() { },
-    mounted() { }
+    mounted() {
+        if (window.performance.navigation.type == 1 && this.$route.path === '/SingleIR') {
+            this.IsOpen = false;
+        }
+    }
 };
 </script>
-<style lang="less" scoped> 
-.el-aside {
+<style lang="less" scoped> .el-aside {
      background-color: #FFF;
      color: #333;
      text-align: center;
@@ -107,7 +109,7 @@ export default {
  .el-main {
      background-color: #FFF;
      color: #333;
-     text-align: center; 
+     text-align: center;
      height: 100vh;
  }
 

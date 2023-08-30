@@ -19,17 +19,20 @@ Vue.use(store);
 
 const app = new Vue({})
 
+
+
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(App), 
 }).$mount('#app')
- 
-const goEasy = GoEasy.getInstance({
+
+///im通讯
+const goEasyIM = GoEasy.getInstance({
   host: 'hangzhou.goeasy.io', //应用所在的区域地址: 【hangzhou.goeasy.io |singapore.goeasy.io】
   appkey: 'BC-31498816867c4859b5b652aa58a43b44', // common key,
-  modules: ['im'],
+  modules: ['im','pubsub'],
 });
-
+    
 Vue.prototype.GoEasy = GoEasy;
-Vue.prototype.goEasy = goEasy;
+Vue.prototype.goEasyIM = goEasyIM; 

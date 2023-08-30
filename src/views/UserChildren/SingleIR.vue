@@ -17,127 +17,153 @@
                 <div class="message-text" v-for="(message, key) in messages" :key="key">{{ message }}</div>
               </div>
             </div>
-            <text class="version">{{ version }}</text>
+
           </div>
         </div>
       </el-tab-pane>
       <el-tab-pane label="IM聊天即时通讯" name="second">
-         <router-view name="UserIMRouter"></router-view>
+        <router-view name="UserIMRouter"></router-view>
       </el-tab-pane>
     </el-tabs>
 
   </div>
 </template> 
-<script setup>
-import { ref, onBeforeMount, inject } from 'vue';
-import GoEasy from 'goeasy';
-import { version } from '../../../package.json';
-
-//即时通讯https://docs.goeasy.io/2.x/pubsub/get-start
-const goEasy = GoEasy.getInstance({
-  host: 'hangzhou.goeasy.io', //应用所在的区域地址: 【hangzhou.goeasy.io |singapore.goeasy.io】
-  appkey: 'BC-31498816867c4859b5b652aa58a43b44', // common key,
-  modules: ['pubsub'],
-});
-
-let messages = ref([]);
-let content = ref('');
-
-onBeforeMount(() => {
-  //连接GoEasy
-  connectGoEasy()
-  //接收消息
-  subscribe()
-})
-
-function connectGoEasy() {
-  goEasy.connect({
-    onProgress: function (attempts) {
-      console.log("GoEasy is connecting", attempts);
-    },
-    onSuccess: function () {
-      unshiftMessage("连接成功")
-      console.log("GoEasy connect successfully.")
-    },
-    onFailed: function (error) {
-      unshiftMessage("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
-    }
-  });
-}
-
-function subscribe() {
-  goEasy.pubsub.subscribe({
-    channel: "my_channel",
-    onMessage: function (message) {
-      unshiftMessage(message.content);
-    },
-    onSuccess: function () {
-      unshiftMessage('订阅成功.');
-    },
-    onFailed: function (error) {
-      unshiftMessage("订阅失败，错误编码：" + error.code + " 错误信息：" + error.content);
-    }
-  });
-}
-
-function sendMessageByEnter(event) {
-  if (event.keyCode === 13) { // enter发送
-    event.preventDefault();
-    sendMessage();
-  }
-}
-
-function sendMessage() {//发送消息
-  if (content.value.trim() !== '') {
-    //发送消息
-    goEasy.pubsub.publish({
-      channel: "my_channel",
-      message: content.value,
-      onSuccess: function () {
-        content.value = "";
-        console.log("send message success");
-      },
-      onFailed: function (error) {
-        unshiftMessage("消息发送失败，错误编码：" + error.code + " 错误信息：" + error.content);
-      }
-    });
-  }
-}
-
-function unshiftMessage(content) {
-  let formattedTime = formatDate(new Date(), "hh:mm");
-  let message = formattedTime + " " + content;
-  messages.value.unshift(message);
-}
-
-function formatDate(date) {
-  const hours = ("0" + date.getHours()).slice(-2);
-  const minutes = ("0" + date.getMinutes()).slice(-2);
-  return hours + ":" + minutes;
-}
-</script>
 <script>
+import GoEasy from 'goeasy';
+
 export default {
   components: {},
-  props: {},
+  props: {
+
+  },
   data() {
     return {
-      activeName: 'first'
+      messages: sessionStorage.getItem('messages') == null ? [] : sessionStorage.getItem('messages').split(','),
+      content: '',
+      activeName: 'first',
+
     };
   },
   watch: {},
-  computed: {},
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    }
+  beforeCreate() {
 
   },
-  created() { },
-  mounted() { }
+  computed: {
+  },
+  methods: {
+
+    connectGoEasy() {
+      const vm = this;
+
+      this.goEasyIM.connect({
+        id: "01",
+        onProgress: function (attempts) {
+          console.log("GoEasy is connecting", attempts);
+        },
+        onSuccess: function () {
+          
+          vm.unshiftMessage("连接成功")
+          console.log("GoEasy connect successfully.")
+        },
+        onFailed: function (error) {
+          vm.unshiftMessage("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
+        }
+      });
+
+    }, subscribe() {
+      const vm = this;
+      this.goEasyIM.pubsub.subscribe({
+        channel: "my_channel",
+        onMessage: function (message) {
+          vm.unshiftMessage(message.content);
+        },
+        onSuccess: function () {
+          vm.unshiftMessage('订阅成功.');
+        },
+        onFailed: function (error) {
+          vm.unshiftMessage("订阅失败，错误编码：" + error.code + " 错误信息：" + error.content);
+        }
+      });
+    }, sendMessage() {
+      const vm = this;
+      //发送消息
+      if (this.content.trim() !== '') {
+        try {
+          //发送消息
+          vm.goEasyIM.pubsub.publish({
+            channel: "my_channel",
+            message: this.content,
+            onSuccess: function () {
+              this.content = "";
+              console.log("send message success");
+            },
+            onFailed: function (error) {
+              vm.unshiftMessage("消息发送失败，错误编码：" + error.code + " 错误信息：" + error.content);
+            }
+          });
+        } catch (error) {
+          // 连接GoEasy
+          if (this.goEasyIM.getConnectionStatus() === 'disconnected') {
+            this.connectGoEasy();  //连接goeasy
+          }
+          // 接收消息
+          this.subscribe();
+          //重新触发当前方法
+          this.sendMessage();
+        }
+
+      }
+      //清空消息
+      this.content = '';
+    },
+    unshiftMessage(content) {
+      let formattedTime = this.formatDate(new Date(), "hh:mm");
+      let message = formattedTime + " " + content;  
+      this.messages.unshift(message); 
+      sessionStorage.setItem('messages', this.messages);
+    },
+    sendMessageByEnter(event) {
+      if (event.keyCode === 13) { // enter发送
+        event.preventDefault();
+        this.sendMessage();
+      }
+    }, formatDate(date) {
+      const hours = ("0" + date.getHours()).slice(-2);
+      const minutes = ("0" + date.getMinutes()).slice(-2);
+      return hours + ":" + minutes;
+    },
+    handleClick(tab, event) {
+    },
+
+
+  },
+  created() {
+
+
+    try {
+      // 连接GoEasy
+      if (this.goEasyIM.getConnectionStatus() === 'disconnected') {
+        this.connectGoEasy();  //连接goeasy
+      }
+      // 接收消息
+      this.subscribe();
+    } catch (error) {
+      this.$router.replace(this.$route.path)
+    }
+
+
+
+
+  },
+  mounted() {
+
+  }
 };
+
 </script>
-<style>
+ 
+
+<style lang="less" scoped>
 .index {
   width: 100%;
   height: 100%;
@@ -224,12 +250,5 @@ export default {
 
 .message-text {
   padding: 4px 11px;
-}
-
-.version {
-  color: #FFFFFF;
-  text-align: center;
-  line-height: 30px;
-  font-size: 18px;
 }
 </style>

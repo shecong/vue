@@ -106,16 +106,16 @@
         },
         privateChat () {
           this.$router.replace({
-            path: '/imconversations/imprivatechat/'+this.profile.friend.id,
+            path: '/imprivatechat/'+this.profile.friend.id,
             query: {
               name: this.profile.friend.name,
               avatar: this.profile.friend.avatar
             }
           });
         },
-        groupChat () {
+        groupChat () { 
           this.$router.replace({
-            path: '/imconversations/imgroupchat/'+this.profile.group.id,
+            path: '/imgroupchat/'+this.profile.group.id,
             query: {
               name: this.profile.group.name,
               avatar: this.profile.group.avatar

@@ -181,7 +181,7 @@
     </div>
   </template>
   
-  <script>
+  <script >
     import {formatDate} from '../../../utils/User/utils.js'
     import restApi from '../../../api/restapi';
     import EmojiDecoder from '../../../utils/User/SingleIRChildren/EmojiDecoder';
@@ -259,17 +259,17 @@
         };
         this.currentUser = this.globalData.currentUser;
         this.to = {
-          type: this.GoEasy.IM_SCENE.PRIVATE,
+          type: this.goEasyIM.IM_SCENE.PRIVATE,
           id: this.friend.id,
           data: {name: this.friend.name, avatar: this.friend.avatar},
         };
   
         this.loadHistoryMessage(true);
   
-        this.goEasy.im.on(this.GoEasy.IM_EVENT.PRIVATE_MESSAGE_RECEIVED, this.onReceivedPrivateMessage);
+        this.goEasyIM.im.on(this.goEasyIM.IM_EVENT.PRIVATE_MESSAGE_RECEIVED, this.onReceivedPrivateMessage);
       },
       beforeDestroy() {
-        this.goEasy.im.off(this.GoEasy.IM_EVENT.PRIVATE_MESSAGE_RECEIVED, this.onReceivedPrivateMessage);
+        this.goEasyIM.im.off(this.goEasyIM.IM_EVENT.PRIVATE_MESSAGE_RECEIVED, this.onReceivedPrivateMessage);
       },
       methods: {
         formatDate,
@@ -327,7 +327,7 @@
             console.log('输入为空');
             return
           }
-          this.goEasy.im.createTextMessage({
+          this.goEasyIM.im.createTextMessage({
             text: this.text,
             to: this.to,
             onSuccess: (message) => {
@@ -352,7 +352,7 @@
         sendImageMessage(e) {
           let fileList = [...e.target.files];
           fileList.forEach((file) => {
-            this.goEasy.im.createImageMessage({
+            this.goEasyIM.im.createImageMessage({
               file: file,
               to: this.to,
               onProgress: function (progress) {
@@ -370,7 +370,7 @@
   
         sendVideoMessage(e) {
           const file = e.target.files[0];
-          this.goEasy.im.createVideoMessage({
+          this.goEasyIM.im.createVideoMessage({
             file: file,
             to: this.to,
             onProgress: function (progress) {
@@ -387,7 +387,7 @@
   
         sendFileMessage(e) {
           const file = e.target.files[0];
-          this.goEasy.im.createFileMessage({
+          this.goEasyIM.im.createFileMessage({
             file: file,
             to: this.to,
             onProgress: function (progress) {
@@ -410,7 +410,7 @@
         },
         sendOrderMessage(order) {
           this.orderList.visible = false;
-          this.goEasy.im.createCustomMessage({
+          this.goEasyIM.im.createCustomMessage({
             type: 'order',
             payload: order,
             to: this.to,
@@ -425,7 +425,7 @@
         sendMessage(message) {
           this.history.messages.push(message);
           this.scrollToBottom();
-          this.goEasy.im.sendMessage({
+          this.goEasyIM.im.sendMessage({
             message: message,
             onSuccess: (message) => {
               console.log('发送成功', message);
@@ -469,7 +469,7 @@
                 selectedMessages.push(message);
               }
             });
-            this.goEasy.im.deleteMessage({
+            this.goEasyIM.im.deleteMessage({
               messages: selectedMessages,
               onSuccess: () => {
                 selectedMessages.forEach((message) => {
@@ -496,7 +496,7 @@
             }
           });
           this.actionPopup.visible = false;
-          this.goEasy.im.recallMessage({
+          this.goEasyIM.im.recallMessage({
             messages: selectedMessages,
             onSuccess: () => {
               console.log('撤回成功');
@@ -539,7 +539,7 @@
           if (lastMessage) {
             lastMessageTimeStamp = lastMessage.timestamp;
           }
-          this.goEasy.im.history({
+          this.goEasyIM.im.history({
             userId: this.friend.id,
             lastTimestamp: lastMessageTimeStamp,
             limit: 10,
@@ -572,7 +572,7 @@
           });
         },
         markPrivateMessageAsRead() {
-          this.goEasy.im.markMessageAsRead({
+          this.goEasyIM.im.markMessageAsRead({
             id: this.to.id,
             type: this.to.type,
             onSuccess: function () {

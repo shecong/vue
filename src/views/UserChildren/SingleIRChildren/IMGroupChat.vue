@@ -178,7 +178,7 @@
     </div>
   </template>
   
-  <script>
+  <script >
     import {formatDate} from '../../../utils/User/utils.js'
     import restApi from '../../../api/restapi';
     import EmojiDecoder from '../../../utils/User/SingleIRChildren/EmojiDecoder';

@@ -74,7 +74,9 @@
 <script>
 import restApi from "../../../api/restapi";
 import { formatDate } from '../../../utils/User/utils'
-console.log(1111)
+   
+ 
+
 export default {
   name: 'Conversations',
   data() {
@@ -102,12 +104,12 @@ export default {
     this.subscribeGroup();  //订阅群消息
   },
   beforeDestroy() {
-    this.goEasy.im.off(this.GoEasy.IM_EVENT.CONVERSATIONS_UPDATED, this.renderConversations);
+    this.goEasyIM.im.off(this.GoEasy.IM_EVENT.CONVERSATIONS_UPDATED, this.renderConversations);
   },
   methods: {
     formatDate,
     loadConversations() {
-      this.goEasy.im.latestConversations({
+      this.goEasyIM.im.latestConversations({
         onSuccess: (result) => {
           let content = result.content;
           this.renderConversations(content);
@@ -117,9 +119,9 @@ export default {
         },
       });
     },
-    listenConversationUpdate() {
+    listenConversationUpdate() { 
       // 监听会话列表变化
-      this.goEasy.im.on(this.GoEasy.IM_EVENT.CONVERSATIONS_UPDATED, this.renderConversations);
+      this.goEasyIM.im.on(this.GoEasy.IM_EVENT.CONVERSATIONS_UPDATED, this.renderConversations);
     },
     renderConversations(content) {
       this.conversations = content.conversations;
@@ -127,7 +129,7 @@ export default {
     subscribeGroup() {
       let groups = restApi.findGroups(this.currentUser);
       let groupIds = groups.map((item) => item.id);
-      this.goEasy.im.subscribeGroup({
+      this.goEasyIM.im.subscribeGroup({
         groupIds: groupIds,
         onSuccess: function () {
           console.log('订阅群消息成功');
@@ -149,7 +151,7 @@ export default {
     topConversation() {
       let conversation = this.rightClickMenu.conversation;
       let description = conversation.top ? '取消置顶' : '置顶';
-      this.goEasy.im.topConversation({
+      this.goEasyIM.im.topConversation({
         conversation: conversation,
         top: !conversation.top,
         onSuccess: function () {
@@ -163,7 +165,7 @@ export default {
     deleteConversation() {
       if (confirm('确认要删除这条会话吗？')) {
         let conversation = this.rightClickMenu.conversation;
-        this.goEasy.im.removeConversation({
+        this.goEasyIM.im.removeConversation({
           conversation: conversation,
           onSuccess: function () {
             console.log('删除会话成功');

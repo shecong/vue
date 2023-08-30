@@ -5,7 +5,7 @@ import User from '../views/User'
 import Main from '../views/Main'
 import Mall from '../views/Mall'
 import Login from '../views/Login'
-import store from "../store/index" 
+import store from "../store/index"
 import Account from '../views/UserChildren/Account.vue'
 import Like from '../views/UserChildren/Like.vue'
 import MyHtml from '../views/UserChildren/MyHtml.vue'
@@ -19,16 +19,16 @@ import IMLogin from '../views/UserChildren/SingleIRChildren/IMLogin.vue'
 import IMConversations from '../views/UserChildren/SingleIRChildren/IMConversations.vue'
 import IMContacts from '../views/UserChildren/SingleIRChildren/IMContacts.vue'
 import IMPrivateChat from '../views/UserChildren/SingleIRChildren/IMPrivateChat.vue'
-import IMGroupChat from '../views/UserChildren/SingleIRChildren/IMGroupChat.vue' 
+import IMGroupChat from '../views/UserChildren/SingleIRChildren/IMGroupChat.vue'
 //IM通讯引入
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/', redirect: 'Login' ,components:{
-      default:Main,
-      User:User
+    path: '/', redirect: 'Login', components: {
+      default: Main,
+      User: User
     }
   },
   {
@@ -56,64 +56,84 @@ const routes = [
         path: '/User', component: User, meta: {
           title: '用户中心',
           requireAuth: true
-        },children:[ 
+        }, children: [
           {
-            path: '/Account', components:{UserRouter:Account}, meta: {
+            path: '/Account', components: { UserRouter: Account }, meta: {
               title: '账号信息',
               requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
             }
           },
           {
-            path: '/Like', components:{UserRouter:Like}, meta: {
+            path: '/Like', components: { UserRouter: Like }, meta: {
               title: '兴趣爱好',
               requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
             }
           },
           {
-            path: '/MyHtml', components:{UserRouter:MyHtml}, meta: {
+            path: '/MyHtml', components: { UserRouter: MyHtml }, meta: {
               title: '自定义页面',
               requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
             }
           },
           {
-            path: '/Setting', components:{UserRouter:Setting}, meta: {
+            path: '/Setting', components: { UserRouter: Setting }, meta: {
               title: '系统设置',
-              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+              requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+              keepAlive: true
             }
           },
           {
-            path: '/SingleIR', components:{UserRouter:SingleIR} , meta: {
+            path: '/SingleIR', components: { UserRouter: SingleIR }, meta: {
               title: '消息通知',
-              requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
-            },children:[ 
+              requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+              keepAlive: true
+            }, children: [
               {
                 path: '/IMHome',
-                components: {UserIMRouter:IMHome}, 
+                components: { UserIMRouter: IMHome },
+                meta: {
+                  keepAlive: true
+                },
                 children: [
-                    {
-                        path: '/imconversations',
-                      components: {UserIMRouter:IMConversations},
-                        children: [
-                            {
-                                path: '/imprivatechat/:id',
-                                components: {UserIMRouterEntry:IMPrivateChat},
-                            },
-                            {
-                                path: '/imgroupchat/:id',
-                              components: {UserIMRouterEntry:IMGroupChat},
-                            },
-                        ],
+                  {
+                    path: '/IMConversations',
+                    components: { UserIMSRouter: IMConversations },
+                    meta: {
+                      keepAlive: true
                     },
-                    {
-                        path: '/imcontacts',
-                      components: {UserIMRouter:IMContacts},
+                    children: [
+                      {
+                        path: '/IMPrivateChat/:id',
+                        components: { UserIMSRouter: IMPrivateChat },
+                        meta: {
+                          keepAlive: true
+                        },
+                      },
+                      {
+                        path: '/IMGroupChat/:id',
+                        components: { UserIMSRouter: IMGroupChat },
+                        meta: {
+                          keepAlive: true
+                        },
+                      },
+                    ],
+                  },
+                  {
+                    path: '/IMContacts',
+                    components: { UserIMSRouter: IMContacts },
+                    meta: {
+                      keepAlive: true
                     },
+                  },
                 ],
-            },
-            {
+              },
+              {
                 path: '/',
-              components: {UserIMRouter:IMLogin},
-            },
+                components: { UserIMRouter: IMLogin },
+                meta: {
+                  keepAlive: true
+                },
+              },
 
             ]
           },
@@ -127,8 +147,8 @@ const routes = [
       },
     ]
   },
-  
-] 
+
+]
 const router = new VueRouter({
   // mode: 'history',
   routes, // `routes: routes` 的缩写
@@ -142,18 +162,18 @@ const originalPush = VueRouter.prototype.push
 const originalReplace = VueRouter.prototype.replace
 
 // 修改原型对象中的push函数
-VueRouter.prototype.push = function push(location){
-return originalPush.call(this , location).catch(err=>err)
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
 }
 
 // 修改原型对象中的replace函数
-VueRouter.prototype.replace = function replace(location){
-return originalReplace.call(this , location).catch(err=>err)
-} 
- 
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err)
+}
+
 // 注册全局钩子用来拦截导航
 router.beforeEach((to, from, next) => {
-  const token = store.state.token 
+  const token = store.state.token
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
     if (token) { // 通过vuex state获取当前的token是否存在 
       next()

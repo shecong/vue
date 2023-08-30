@@ -23,11 +23,11 @@
           </div>
           <div class="menu-box">
             <div class="menu-list">
-              <router-link tag="div" class="menu-item"  to="./imconversations" replace>
+              <router-link tag="div" class="menu-item"  to="/imconversations" >
                 <i class="iconfont icon-zaixiankefu"></i>
                 <span v-if="unreadAmount" class="menu-unread">{{ unreadAmount}}</span>
               </router-link>
-              <router-link tag="div" class="menu-item" to="./imcontacts" replace>
+              <router-link tag="div" class="menu-item" to="/imcontacts" >
                 <i class="iconfont icon-haoyou"></i>
               </router-link>
             </div>
@@ -37,32 +37,33 @@
           </div>
         </div>
         <div class="home-main">
-          <router-view name="UserIMRouterEntry"></router-view> 
+          <router-view name="UserIMSRouter"></router-view> 
         </div>
       </div>
     </div>
   </template>
   
-  <script>
+  <script >
     export default {
       data() {
         return {
           currentUser: null,
-          unreadAmount: null
+          unreadAmount: null,
+        
         };
       },
       created() {
         this.currentUser = this.globalData.currentUser;
-        if (this.goEasy.getConnectionStatus() === 'disconnected') {
+        if (this.goEasyIM.getConnectionStatus() === 'disconnected') {
           this.connectGoEasy();  //连接goeasy
         }
-        this.goEasy.im.on(this.GoEasy.IM_EVENT.CONVERSATIONS_UPDATED, this.setUnreadNumber);
+        this.goEasyIM.im.on(this.GoEasy.IM_EVENT.CONVERSATIONS_UPDATED, this.setUnreadNumber);
       },
       methods: {
         connectGoEasy() {
-          this.goEasy.connect({
+          this.goEasyIM.connect({
             id: this.currentUser.id,
-            data: {name: this.currentUser.name, avatar: this.currentUser.avatar},
+            data: {name: this.currentUser.name, avatar: this.currentUser==null ?'':this.currentUser.avatar},
             onSuccess: function () {  //连接成功
               console.log("GoEasy connect successfully.") //连接成功
             },
@@ -79,14 +80,14 @@
         },
         logout() {
           if (confirm('确认要退出登录吗？')) {
-            this.goEasy.disconnect({
-              onSuccess: () => {
-                this.globalData.currentUser = null;
-                this.$router.replace({path: '/IMLogin'});
-              },
-              onFailed: (error) => {
-                console.log("Failed to disconnect GoEasy, code:" + error.code + ",error:" + error.content);
-              }
+            this.goEasyIM.disconnect({
+              // onSuccess: () => {
+              //   this.globalData.currentUser = null;
+              //   this.$router.replace({path: '/IMLogin'});
+              // },
+              // onFailed: (error) => {
+              //   console.log("Failed to disconnect GoEasy, code:" + error.code + ",error:" + error.content);
+              // }
             });
           }
         },
