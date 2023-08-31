@@ -41,14 +41,14 @@ export default {
       messages: sessionStorage.getItem('messages') == null ? [] : sessionStorage.getItem('messages').split(','),
       content: '',
       activeName: 'first',
-
     };
   },
   watch: {},
   beforeCreate() {
-
+    
   },
   computed: {
+    
   },
   methods: {
 
@@ -61,7 +61,7 @@ export default {
           console.log("GoEasy is connecting", attempts);
         },
         onSuccess: function () {
-          
+
           vm.unshiftMessage("连接成功")
           console.log("GoEasy connect successfully.")
         },
@@ -118,8 +118,8 @@ export default {
     },
     unshiftMessage(content) {
       let formattedTime = this.formatDate(new Date(), "hh:mm");
-      let message = formattedTime + " " + content;  
-      this.messages.unshift(message); 
+      let message = "time:" + formattedTime + " || ip:" + (sessionStorage.getItem('ipAddress') == null ? '' : sessionStorage.getItem('ipAddress')) + "\n\t messages: " + content;
+      this.messages.unshift(message);
       sessionStorage.setItem('messages', this.messages);
     },
     sendMessageByEnter(event) {
@@ -138,7 +138,6 @@ export default {
 
   },
   created() {
-
 
     try {
       // 连接GoEasy

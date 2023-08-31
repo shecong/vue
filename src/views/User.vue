@@ -87,11 +87,26 @@ export default {
             if (this.$route.path !== item.path || (this.$route.path === '/home' && item.path === "/")) {
                 this.$router.replace(item.path)
             }
-        },
+        }, // 获取当前路由的所有上级路由
+          getUpperRoutes() {
+            const currentRoute = this.$router.currentRoute
+            const matchedRoutes = currentRoute.matched
+
+            const upperRoutes = []
+            for (let i = 0; i < matchedRoutes.length - 1; i++) {
+                upperRoutes.push(matchedRoutes[i].path)
+            }
+
+            return upperRoutes
+        }
     },
     created() { },
     mounted() {
-        if (window.performance.navigation.type == 1 && this.$route.path === '/SingleIR') {
+       
+
+        // 调用函数获取所有上级路由
+        const upperRoutes = this.getUpperRoutes() 
+        if (window.performance.navigation.type == 1 && upperRoutes.includes('/SingleIR')) {
             this.IsOpen = false;
         }
     }

@@ -66,8 +66,7 @@ export default {
         .then(response => {
           // 请求成功的处理逻辑 
           this.baiduHot = response.data.data
-          this.loading = false;
-          console.log(this.baiduHot);
+          this.loading = false; 
         })
         .catch(error => {
           // 请求失败的处理逻辑

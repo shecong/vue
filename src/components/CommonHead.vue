@@ -87,8 +87,7 @@ export default {
             },
             UserInfo() {
                 this.$message('开发中。。。');
-            }, handleClose(done) {
-
+            }, handleClose(done) { 
                 done();
             },
             ChangeThemeColor(item) {

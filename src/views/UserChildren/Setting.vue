@@ -1,7 +1,7 @@
 <template>
-  <div>系统设置</div>
+  <div>系统设置 </div>
 </template>
-
+ 
 <script>
 export default {
   components: {},
@@ -19,3 +19,4 @@ export default {
 </script>
 <style lang="less" scoped>
 </style>
+ 

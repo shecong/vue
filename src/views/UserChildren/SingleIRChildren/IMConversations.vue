@@ -4,7 +4,7 @@
       <div class="conversation-list-container">
         <div class="conversation-list-content">
           <div v-if="conversations.length">
-            <router-link tag="div" replace v-for="(conversation, key) in conversations" :key="key"
+            <router-link     tag="div" replace v-for="(conversation, key) in conversations" :key="key"
               :to="chatLocation(conversation)">
               <div class="conversation" @contextmenu.prevent.stop="e => showRightClickMenu(e, conversation)">
                 <div class="avatar">
@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="chat">
-      <router-view :key="$route.params.id" />
+      <router-view name="UserIMSRouter"  :key="this.$route.params.id" />
     </div>
   </div>
 </template>
@@ -78,6 +78,7 @@ import { formatDate } from '../../../utils/User/utils'
  
 
 export default {
+  
   name: 'Conversations',
   data() {
     return {
@@ -92,7 +93,7 @@ export default {
       },
     };
   },
-  created() {
+  created() { 
     //隐藏Conversation右键菜单
     document.addEventListener('click', () => {
       this.hideRightClickMenu();

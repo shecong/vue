@@ -27,6 +27,9 @@ new Vue({
   render: h => h(App), 
 }).$mount('#app')
 
+
+
+
 ///im通讯
 const goEasyIM = GoEasy.getInstance({
   host: 'hangzhou.goeasy.io', //应用所在的区域地址: 【hangzhou.goeasy.io |singapore.goeasy.io】

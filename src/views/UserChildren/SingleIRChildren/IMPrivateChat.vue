@@ -190,7 +190,7 @@
     const IMAGE_MAX_WIDTH = 200;
     const IMAGE_MAX_HEIGHT = 150;
     export default {
-      name: 'PrivateChat',
+      name: 'IMPrivateChat',
       components: {
         GoeasyVideoPlayer,
       },
@@ -257,19 +257,19 @@
           name: this.$route.query.name,
           avatar: this.$route.query.avatar,
         };
-        this.currentUser = this.globalData.currentUser;
+        this.currentUser = this.globalData.currentUser; 
         this.to = {
-          type: this.goEasyIM.IM_SCENE.PRIVATE,
+          type: this.GoEasy.IM_SCENE.PRIVATE,
           id: this.friend.id,
           data: {name: this.friend.name, avatar: this.friend.avatar},
         };
   
         this.loadHistoryMessage(true);
   
-        this.goEasyIM.im.on(this.goEasyIM.IM_EVENT.PRIVATE_MESSAGE_RECEIVED, this.onReceivedPrivateMessage);
+        this.goEasyIM.im.on(this.GoEasy.IM_EVENT.PRIVATE_MESSAGE_RECEIVED, this.onReceivedPrivateMessage);
       },
       beforeDestroy() {
-        this.goEasyIM.im.off(this.goEasyIM.IM_EVENT.PRIVATE_MESSAGE_RECEIVED, this.onReceivedPrivateMessage);
+        this.goEasyIM.im.off(this.GoEasy.IM_EVENT.PRIVATE_MESSAGE_RECEIVED, this.onReceivedPrivateMessage);
       },
       methods: {
         formatDate,

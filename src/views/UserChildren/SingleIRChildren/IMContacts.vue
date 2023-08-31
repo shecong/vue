@@ -105,8 +105,8 @@
           });
         },
         privateChat () {
-          this.$router.replace({
-            path: '/imprivatechat/'+this.profile.friend.id,
+          this.$router.push({
+            path: '/IMConversations/IMPrivateChat/'+this.profile.friend.id,
             query: {
               name: this.profile.friend.name,
               avatar: this.profile.friend.avatar
@@ -114,8 +114,8 @@
           });
         },
         groupChat () { 
-          this.$router.replace({
-            path: '/imgroupchat/'+this.profile.group.id,
+          this.$router.push({
+            path: '/IMConversations/IMGroupChat/'+this.profile.group.id,
             query: {
               name: this.profile.group.name,
               avatar: this.profile.group.avatar

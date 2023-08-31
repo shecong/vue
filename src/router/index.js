@@ -79,60 +79,42 @@ const routes = [
             path: '/Setting', components: { UserRouter: Setting }, meta: {
               title: '系统设置',
               requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-              keepAlive: true
+               
             }
           },
           {
             path: '/SingleIR', components: { UserRouter: SingleIR }, meta: {
               title: '消息通知',
               requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-              keepAlive: true
+              
             }, children: [
               {
                 path: '/IMHome',
-                components: { UserIMRouter: IMHome },
-                meta: {
-                  keepAlive: true
-                },
+                components: { UserIMRouter: IMHome }, 
                 children: [
                   {
                     path: '/IMConversations',
-                    components: { UserIMSRouter: IMConversations },
-                    meta: {
-                      keepAlive: true
-                    },
+                    components: { UserIMSRouter: IMConversations }, 
                     children: [
                       {
-                        path: '/IMPrivateChat/:id',
-                        components: { UserIMSRouter: IMPrivateChat },
-                        meta: {
-                          keepAlive: true
-                        },
+                        path: 'IMPrivateChat/:id',
+                        components: { UserIMSRouter: IMPrivateChat }, 
                       },
                       {
-                        path: '/IMGroupChat/:id',
-                        components: { UserIMSRouter: IMGroupChat },
-                        meta: {
-                          keepAlive: true
-                        },
+                        path: 'IMGroupChat/:id',
+                        components: { UserIMSRouter: IMGroupChat }, 
                       },
                     ],
                   },
                   {
                     path: '/IMContacts',
-                    components: { UserIMSRouter: IMContacts },
-                    meta: {
-                      keepAlive: true
-                    },
+                    components: { UserIMSRouter: IMContacts }, 
                   },
                 ],
               },
               {
                 path: '/',
-                components: { UserIMRouter: IMLogin },
-                meta: {
-                  keepAlive: true
-                },
+                components: { UserIMRouter: IMLogin }, 
               },
 
             ]
