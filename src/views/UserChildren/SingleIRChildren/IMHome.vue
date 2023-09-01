@@ -81,13 +81,13 @@
         logout() {
           if (confirm('确认要退出登录吗？')) {
             this.goEasyIM.disconnect({
-              // onSuccess: () => {
-              //   this.globalData.currentUser = null;
-              //   this.$router.replace({path: '/IMLogin'});
-              // },
-              // onFailed: (error) => {
-              //   console.log("Failed to disconnect GoEasy, code:" + error.code + ",error:" + error.content);
-              // }
+              onSuccess: () => {
+                //this.globalData.currentUser = null;
+                this.$router.replace({path: '/SingleIR'});
+              },
+              onFailed: (error) => {
+                console.log("Failed to disconnect GoEasy, code:" + error.code + ",error:" + error.content);
+              }
             });
           }
         },

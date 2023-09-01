@@ -2,8 +2,7 @@
     <div>
         <el-row>
             <el-col :span="24">
-                <div class="grid-content">
-                    <el-button type="primary" @click="clickOpenHidden">{{ isOpen ?  '展开': '折叠' }}</el-button>
+                <div class="grid-content" @mouseover="clickOpen" > 
                     <div class="thumb-example" ref="openBox">
                         <!-- swiper1 -->
                         <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop">
@@ -119,9 +118,13 @@ export default {
             swiperTop.controller.control = swiperThumbs
             swiperThumbs.controller.control = swiperTop
         })
+        setTimeout(() => {
+        // 俩秒之后让模块消失
+        this.clickHidden();
+        }, 800);
     },methods:{
-        // 展开折叠
-		clickOpenHidden() {
+        // 展开
+		clickOpen() {
 			this.isOpen = !this.isOpen
 			
 			let openBox = this.$refs.openBox
@@ -133,11 +136,17 @@ export default {
 				openBox.style.height = '480px' 
 				let f = document.body.offsetHeight  // 必加 (不知道具体是为什么必加, 测试时发现若不加在展开时候会没有过渡效果) 
 				openBox.style.height = '480px'
-			} else { //折叠
-				openBox.style.height = this.openHeight + 'px'
-			}
+			} 
 		},
-    }
+        clickHidden() {
+			this.isOpen = !this.isOpen 
+			let openBox = this.$refs.openBox
+			let boxheight = openBox.offsetHeight 
+			openBox.style.height = this.openHeight + 'px' 
+		},
+    },watch: {
+
+    },
 }
 
 </script> 

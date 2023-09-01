@@ -3,7 +3,7 @@
     <div class="imlogin-container">
       <div class="imlogin-main">
         <div class="imlogin-header">
-          <div>GoEasy IM PC端示例</div>
+          <div> IM 即时通讯</div>
         </div>
         <div class="imlogin-form">
           <div class="form-item">
